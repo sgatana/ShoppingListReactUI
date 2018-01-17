@@ -1,28 +1,29 @@
-.App {
-  text-align: center;
+header {
+    width: 100%;
+    background: linear-gradient(90deg, #d4eece, #55b3d0, #1e7eb7),
+    url(./images/shop.jpg) no-repeat;
+    text-align: center;
+    background-blend-mode: multiply;
+    background-size: cover;
+    height: 280px;
+    padding: 50px;
+    color: white;
+    border-radius: .35em;
 }
+header p{
+    font-size: 18px;
+}
+h1 {
+    font-family: 'Courgette', cursive;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .4);
+    line-height: .65;
+    margin-bottom: 0;
+  }
+ .form{
+     width: 45%;
+     margin: 50px auto;
+ }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+ .form input{
+     width: 40%;
+ }
