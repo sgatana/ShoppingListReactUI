@@ -5,7 +5,9 @@
 body {
   font-family: 'Lato', sans-serif;
   color: #1a1818;
-  background: #eee;
+  background: url(./images/bg.jpg) no-repeat;
+  background-size: cover;
+  min-height: 830px;
 }
 
 .App {
@@ -14,8 +16,10 @@ body {
   margin: 2.5em auto;
   border-radius: .35em;
   background: #fcfcfc;
+  opacity: 1;
   overflow: hidden;
   box-shadow: 0 0 26px rgba(0, 0, 0, .13);
+
 }
 .glyphicon.glyphicon-user{
   text-align: center;
