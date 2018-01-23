@@ -5,11 +5,21 @@
 body {
   font-family: 'Lato', sans-serif;
   color: #1a1818;
-  background: url(./images/bg.jpg) no-repeat;
+  background: linear-gradient(90deg, #252723, #36545c, #522009), url(./images/shop.jpg) no-repeat;
   background-size: cover;
+  background-blend-mode: multiply;
   min-height: 830px;
 }
 
+.home{
+  color: #fff;
+}
+.home-login {
+  min-height: 400px;
+}
+.dashboard {
+  background: #fcfcfc;
+}
 .App {
   width: 100%;
   max-width: 1000px;
@@ -51,3 +61,50 @@ body {
 .user{
   font-size: 60px;
 }
+header {
+    width: 100%;
+    background: linear-gradient(90deg, #d4eece, #55b3d0, #1e7eb7),
+    url(./images/shop.jpg) no-repeat;
+    text-align: center;
+    background-blend-mode: multiply;
+    background-size: cover;
+    height: 280px;
+    padding: 50px;
+    color: white;
+    border-radius: .35em;
+}
+header p{
+    font-size: 18px;
+}
+h1 {
+    font-family: 'Courgette', cursive;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .4);
+    line-height: .65;
+    margin-bottom: 0;
+  }
+ .form{
+     width: 45%;
+     margin: 50px auto;
+ }
+
+ .form input{
+     width: 40%;
+ }
+ .footer{
+     width:25%;
+     margin: auto;
+
+ }
+  .react-confirm-alert h1 {
+    font-family: sans-serif;
+    padding-bottom: 10px;
+    color: #f11912;
+    text-align: center;
+    font-size: 24;
+  }
+  .react-confirm-alert h3 {
+    text-align: center;
+  }
+  .react-confirm-alert-button-group {
+    padding-left: 70px;
+  }

@@ -1,29 +1,80 @@
-header {
-    width: 100%;
-    background: linear-gradient(90deg, #d4eece, #55b3d0, #1e7eb7),
-    url(./images/shop.jpg) no-repeat;
-    text-align: center;
-    background-blend-mode: multiply;
-    background-size: cover;
-    height: 280px;
-    padding: 50px;
-    color: white;
-    border-radius: .35em;
+.react-confirm-alert-overlay {
+    background: rgba(0, 0, 0, 0.3) !important;
+ }
+.button{
+    margin-left: 30px;
 }
-header p{
+.links {
+    padding: 9px 25px;
+}
+
+.navbar-inverse {
+    background-color: rgb(95, 71, 71);
+    border-color: #080808;
+    color: #fff;
+}
+.navbar-brand {
+    float: left;
+    color: #fff;
+}
+.login {
+    margin: 20px auto;
     font-size: 18px;
 }
-h1 {
-    font-family: 'Courgette', cursive;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, .4);
-    line-height: .65;
-    margin-bottom: 0;
-  }
- .form{
-     width: 45%;
-     margin: 50px auto;
- }
+.user {
+    font-size: 90px;
+    padding: 30px 0 0 0;
+}
 
- .form input{
-     width: 40%;
- }
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
+
+.item-1, 
+.item-2, 
+.item-3 {
+	position: absolute;
+    display: block;
+	top: 5em;
+    width: 60%;
+    font-size: 1.5em;
+
+	animation-duration: 20s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+.item-1{
+	animation-name: anim-1;
+}
+
+.item-2{
+	animation-name: anim-2;
+}
+
+.item-3{
+	animation-name: anim-3;
+}
+
+@keyframes anim-1 {
+	0%, 8.3% { left: -100%; opacity: 0; }
+    8.3%,25% { left: 15%; opacity: 1; }
+    33.33%, 100% { left: 110%; opacity: 0; }
+}
+
+@keyframes anim-2 {
+    0%, 33.33% { left: -100%; opacity: 0; }
+    41.63%, 58.29% { left: 15%; opacity: 1; }
+    66.66%, 100% { left: 110%; opacity: 0; }
+}
+
+@keyframes anim-3 {
+	0%, 66.66% { left: -100%; opacity: 0; }
+    74.96%, 91.62% { left: 15%; opacity: 1; }
+    100% { left: 110%; opacity: 0; }
+}
+.page-header {
+    margin: 0px 0 20px;
+    color: #fff;
+}
+table {
+    background-color: #d9edf7;
+}
