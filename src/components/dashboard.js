@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AddList from './modals/addList';
+import UpdateList from './modals/updateList';
 import axios from 'axios';
 import AddItem from './modals/addItem';
 import Header from './header';
@@ -154,9 +155,10 @@ export default class DashBoard extends Component {
             .catch(error => {
                 if (error.response.data.error === "your token is invalid, please log in "){
                     window.localStorage.clear('token');
+                    window.location.reload();
                     this.props.history.push('/');
                 }
-                if (error.response) {
+                else if (error.response) {
                     this.setState({
                         success: true, found: false
                     })
@@ -242,6 +244,7 @@ export default class DashBoard extends Component {
                                             <div className="col-sm-6 col-md-4">
                                                 <div className="thumbnail">
                                                     <AddItem listId={list.id} />
+                                                    <UpdateList list={list}/>
                                                     <div className="caption">
                                                         <h4 className="text-center">{list.name}</h4>
                                                         <p>{list.description}</p>
@@ -250,9 +253,9 @@ export default class DashBoard extends Component {
                                                                 // onClick={() => { this.setState({ current_shoppinglist: list.id }, console.log('Clickeddddd', this.state))}}
                                                                 data-toggle="modal"
                                                                 data-placement="top" title="add shopping list"
-                                                                data-target="#add_item"
+                                                                data-target={"#add_item" + list.id}
                                                                 role="button">add</i>
-                                                            <i className="btn glyphicon glyphicon-edit text-warning" title="update shoppinglist" role="button">edit</i>
+                                                            <i className="btn glyphicon glyphicon-edit text-warning" data-toggle="modal" data-target={"#update_list" + list.id} title="update shoppinglist" role="button">edit</i>
                                                             <i className="btn glyphicon glyphicon-trash text-danger" onClick={() => { this.onDelete(list.id, list.name) }} title="delete shoppinglist" role="button" >del</i>
                                                             <i className="btn glyphicon glyphicon-file text-success" onClick={() => { this.onItemView(list.id) }} role="button" data-placement="top" title="view items">view</i>
                                                         </p>
