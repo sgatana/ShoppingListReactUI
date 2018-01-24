@@ -6,8 +6,8 @@ import { toast } from 'react-toastify';
 class UpdateItem extends Component {
     constructor(props) {
         super(props);
+        // initialize state
         this.state = {
-            // shoppingList: [],
             name: '',
             price: '',
             quantity: '',
@@ -15,6 +15,7 @@ class UpdateItem extends Component {
         }
 
     }
+    // implement update item functionality
     onUpdateItem = (list_id, item_id) => {
         let itemDetails = new FormData();
         itemDetails.set("name", this.state.name);
@@ -40,6 +41,7 @@ class UpdateItem extends Component {
                 console.log(error.response);
             })
     }
+    // set the state to value being entered
 
     onInputChange = (e) => {
         const itemName = e.target.name;

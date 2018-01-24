@@ -8,12 +8,14 @@ import UpdateItem from './modals/updateItem';
 class Items extends Component {
     constructor(props){
         super(props);
+        // initialize state
         this.state = {
             items: [],
             listId: ''
         }
     }
     
+    // allow item deletion 
     onItemDelete = (itemId) => {
         axios.delete(`/Shoppinglist/${this.props.match.params.id}/Items/${itemId}`, {
             headers: {
@@ -31,12 +33,15 @@ class Items extends Component {
             console.log(error.response)
         })
     }
+    //add edit item functionality
     onItemEdit = () => {
 
     }
+    // add back to shoppinglist button
     onBackToDashboard = () => {
         this.props.history.push('/dashboard');
     }
+    // get all the items
     getItems = (id) => {
         axios.get(`/Shoppinglist/${id}/Items`, {
             headers: {
@@ -59,6 +64,7 @@ class Items extends Component {
 
         })
     }
+    // load items
     componentWillMount(){
         if (!window.localStorage.getItem('token')) {
             this.props.history.push('/')

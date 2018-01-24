@@ -13,6 +13,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 export default class DashBoard extends Component {
     constructor(props) {
         super(props);
+        // initialize state
         this.state = {
             shoppingLists: [],
             success: false,
@@ -24,17 +25,11 @@ export default class DashBoard extends Component {
             view_item: false,
             id: false,
             found: true
-
             
-            // current_shoppinglist: 0
         }
-        this.onDeleteList = this.onDeleteList.bind(this);
-        this.onNext = this.onNext.bind(this);
-        this.onPrevious = this.onPrevious.bind(this);
-        this.onItemView = this.onItemView.bind(this);
-
-
+      
     }
+    // implement search
     onSearchInput = (e) => {
         e.preventDefault();
         if (this.state.found === true){
@@ -51,6 +46,7 @@ export default class DashBoard extends Component {
         }
         
     }
+    // implement pagination
     onNext() {
         axios.get('http://127.0.0.1:5000' + this.state.nextPage, {
             headers: {
@@ -72,6 +68,7 @@ export default class DashBoard extends Component {
                 })
             })
     }
+    // implement pagination
     onPrevious() {
         axios.get('http://127.0.0.1:5000' + this.state.previousPage, {
             headers: {
@@ -93,18 +90,17 @@ export default class DashBoard extends Component {
                 })
             })
     }
-
+    // add confirm delete functionality
     onDelete = (id, name) => {
         confirmAlert({
-            title: 'Confirm to delete',                        // Title dialog
-            message: 'Are you sure you want to delete ' + name,               // Message dialog
-            confirmLabel: 'Delete',                           // Text button confirm
-            cancelLabel: 'Cancel',                             // Text button cancel
-            onConfirm: () => this.onDeleteList(id)   // Action after Confirm
-            // onCancel: () => alert('Action after Cancel'),      // Action after Cancel
+            title: 'Confirm to delete',                        
+            message: 'Are you sure you want to delete ' + name,              
+            confirmLabel: 'Delete',                          
+            cancelLabel: 'Cancel',                             
+            onConfirm: () => this.onDeleteList(id)   
         })
     };
-
+    // allow deletion of shoppinglist 
     onDeleteList(id) {
         axios.delete(`/Shoppinglist/${id}`, {
             headers: {
@@ -120,10 +116,12 @@ export default class DashBoard extends Component {
                 console.log(error.response)
             })
     }
+    // implement view item functionality whenever individual shopping list is clicked
     onItemView (id) {
         // this.setState({id: id, view_item: true})
         this.props.history.push('/Shoppinglist/' +id + '/Items')
     }
+    // get all the shopping list
     getShoppingList = (q) => {
         if (!window.localStorage.getItem('token')) {
             this.props.history.push('/')
@@ -153,6 +151,7 @@ export default class DashBoard extends Component {
                 
             })
             .catch(error => {
+                // verify token expiration
                 if (error.response.data.error === "your token is invalid, please log in "){
                     window.localStorage.clear('token');
                     window.location.reload();
@@ -166,11 +165,10 @@ export default class DashBoard extends Component {
                         toast.error(error.response.data.error)
                         this.getShoppingList("")
                     }
-                    console.log(error.response)
                 }
             });
     }
-
+    // load shopping lists to the dashboard
     componentWillMount() {
         this.getShoppingList("");
 

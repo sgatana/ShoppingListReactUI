@@ -5,6 +5,7 @@ import axios from 'axios';
 class AddItem extends Component {
     constructor(props) {
         super(props);
+        // initialize state
         this.state = {
             shoppingList:[],
             name: '',
@@ -14,6 +15,7 @@ class AddItem extends Component {
         }
         
     }
+    // handle adding item functionality
     onAddItem = (list_id) => {
         let itemDetails = new FormData();
         itemDetails.set("name", this.state.name);
@@ -30,13 +32,13 @@ class AddItem extends Component {
         }
     })
     .then(response => {
-        console.log(response.data);
         window.location.reload();
     })
     .catch(error => {
-        console.log(error.response);
     })
     }
+
+    // set the state to the value being entered
 
     onInputChange = (e) => {
         const itemName = e.target.name;

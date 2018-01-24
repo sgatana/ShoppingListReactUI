@@ -11,13 +11,13 @@ import DashBoard from './components/dashboard';
 import NotFound from './components/notFound';
 import axios from 'axios';
 import Home from './components/home';
-
+ 
+// add a base url
 axios.defaults.baseURL='http://127.0.0.1:5000/v1/';
 
 
 ReactDOM.render(
     <div>
-        {/* <Header /> */}
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={Login} />

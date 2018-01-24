@@ -4,7 +4,7 @@ class Home extends Component {
     render() {
         return (
             <div className="col-md-8">
-
+{/* add a slider to the landing oage */}
                 <div className="item-1">
                     <h2>Save Time for Shopping </h2>
                     <p>The shopping list presents an organized approach enabling the shopper to get in and get out of

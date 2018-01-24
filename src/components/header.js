@@ -10,11 +10,13 @@ export default class Header extends Component {
         }
     }
 
+    // add user logout functionality
     onUserLogout = () => {
         window.localStorage.clear('token');
         window.localStorage.setItem('msg', 'You have successfully logged out!');
         window.location.reload();
     }
+    // get user details 
     getUserDetails = () => {
         axios.get('/user', {
             headers: {
@@ -31,6 +33,7 @@ export default class Header extends Component {
         })
         
     }
+    // load user 
     componentDidMount () {
         this.getUserDetails();
     }

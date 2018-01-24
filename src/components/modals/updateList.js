@@ -6,16 +6,16 @@ import { toast} from 'react-toastify';
 export default class UpdateList extends Component {
     constructor(props) {
         super(props);
+        // initialize state
         this.state = {
             name: '',
             description: '',
             isModalOpen: false,
             items: []
         }
-        // bind the method to super
     }
 
-
+     // implement update shopping list functionality
     onUpdateShoppingList = (id) => {
         let listData = new FormData();
         listData.set('name', this.state.name);
@@ -38,6 +38,7 @@ export default class UpdateList extends Component {
                 toast.error(error.response.data.error);
             })
     }
+    // set the state to value being entered
     onShoppingListInputs = (e) => {
         const listName = e.target.name;
         const listValue = e.target.value;

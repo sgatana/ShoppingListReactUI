@@ -9,15 +9,18 @@ import Home from '../home'
 class Register extends Component {
     constructor(props) {
         super(props);
+        // initialize state
         this.state = {
             username: '',
             email: '',
             password: '',
             confirm: ''
         }
+        // bind the methods to the main React component
         this.handleRegister = this.handleRegister.bind(this)
         this.onChangeInputs = this.onChangeInputs.bind(this)
     }
+    // prevent access to registration page if already logged in
     componentDidMount() {
         try{
             if (window.localStorage.getItem('token')) {
@@ -27,7 +30,7 @@ class Register extends Component {
         catch (e ){}
        
     }
-
+    // handle user registration
     handleRegister = (e) => {
         e.preventDefault();
         let RegisterData = new FormData();
@@ -40,16 +43,15 @@ class Register extends Component {
             headers: { 'Content-type': 'application/x-www-form-urlencoded' }
         })
             .then(res => {
-                console.log(res.data)
                 window.localStorage.setItem('msg', res.data.message);
                 this.props.history.push('/')
             })
             .catch(error => {
-                console.log(error.response.data)
                 toast.error(error.response.data.error)
 
             })
     };
+    // set state to the value being entered
     onChangeInputs = (event) => {
         const key = event.target.name;
         const value = event.target.value;

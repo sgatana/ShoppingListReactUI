@@ -6,6 +6,7 @@ import { toast} from 'react-toastify';
 export default class AddList extends Component {
     constructor(props){
         super(props);
+        // initialize state
         this.state = {
             name:'',
             description:'',
@@ -15,7 +16,7 @@ export default class AddList extends Component {
         this.onAddShoppingList = this.onAddShoppingList.bind(this);
     }
     
-
+    // handle add shoppinglist functionality
     onAddShoppingList = (e)=> {
         e.preventDefault();
         let listData = new FormData();
@@ -37,6 +38,7 @@ export default class AddList extends Component {
             toast.error(error.response.data.error);
         })
     }
+    // set state to value being entered
     onShoppingListInputs =(e) =>{
         const listName = e.target.name;
         const listValue = e.target.value;
