@@ -88,3 +88,7 @@ table {
 .navbar-inverse .navbar-brand {
     color: #d9edf7;
 }
+
+.btn-link a:hover {
+    text-decoration: none !important;
+}

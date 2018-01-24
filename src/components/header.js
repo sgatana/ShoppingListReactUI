@@ -45,7 +45,7 @@ export default class Header extends Component {
         else {
             nav = <span>
                 <button type="button" className="btn btn-link "><i className="fa fa-user-circle" />{this.state.name}</button>
-                <button type="button" onClick={this.onUserLogout} className="btn btn-link ">Logout</button>
+                <button type="button" onClick={this.onUserLogout} className="btn btn-link "><i className="glyphicon glyphicon-log-out" />Logout</button>
                 {/* <Link>Sign Up</Link> */}
             </span>
         }

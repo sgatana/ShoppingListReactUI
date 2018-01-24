@@ -9,6 +9,7 @@ import Home from '../home';
 class Login extends Component {
     constructor(props){
         super(props);
+        // initialize state
         this.state = {
             email: '',
             password: ''
@@ -20,6 +21,7 @@ class Login extends Component {
 
     }
    
+    // check if there exist token
     componentDidMount (){
         try {
             if (window.localStorage.getItem('token')) {
@@ -55,6 +57,7 @@ class Login extends Component {
             
         });
     }
+
     onEmailChangeHandler = (e) => {
         this.setState({
             email: e.target.value,
@@ -68,6 +71,7 @@ class Login extends Component {
     render() {
         return (
                 <div className="home">
+                {/* add a header */}
                     <Header />
                     <ToastContainer hideProgressBar={true} />
                     <div className="container">

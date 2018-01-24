@@ -12,7 +12,6 @@ class AddItem extends Component {
             quantity: '',
             unit: ''
         }
-        this.onAddItem = this.onAddItem.bind(this);
         
     }
     onAddItem = (list_id) => {
@@ -48,7 +47,7 @@ class AddItem extends Component {
     }
     render() {
         return (
-            <div className="modal fade" id="add_item" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div className="modal fade" id={"add_item" + this.props.listId} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
