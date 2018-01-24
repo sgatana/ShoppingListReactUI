@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Header from './header';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 
@@ -11,8 +10,9 @@ class Items extends Component {
         this.state = {
             items: []
         }
-        console.log("Constructor ",props)
-        this.getItems = this.getItems.bind(this);
+    }
+    onBackToDashboard = () => {
+        this.props.history.push('/dashboard');
     }
     getItems = (id) => {
         axios.get(`/Shoppinglist/${id}/Items`, {
@@ -42,9 +42,10 @@ class Items extends Component {
                 <div className="page-header">
                     <h3>
                         ShoppingList name 
-                        <Link to='/dashboard' className="pull-right fa fa-long-arrow-left">Back To ShoppingList 
+                        <button className="pull-right btn btn-success fa fa-long-arrow-left" onClick={this.onBackToDashboard}>Back To ShoppingList 
                         {/* <button className="btn btn-lg btn-success"><i className="fa fa-plus" />Add Item</button> */}
-                        </Link>
+                       
+                        </button>
                     </h3>
                 </div>
                 <div className="row">
@@ -73,16 +74,8 @@ class Items extends Component {
                                         </tr>
                                     )
                                 })
-                                /* <tr>
-                                <td>Bread</td>
-                                <td>50</td>
-                                <td>2</td>
-                                <td>gr</td>
-                                <td>
-                                    <i className="fa fa-edit " /> |  <i className="fa fa-trash text-danger" />
-                                </td>
-                                
-                            </tr> */}
+                               
+                           }
                         </tbody>
                     </table>
                 </div>
