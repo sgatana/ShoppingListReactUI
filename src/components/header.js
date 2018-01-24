@@ -1,13 +1,38 @@
 import React, { Component } from  'react';
 import {Link } from 'react-router-dom';
 
-// import axios from 'axios'
+import axios from 'axios'
 export default class Header extends Component {
+    constructor(props){
+        super(props);
+        this.state ={
+            name: ""
+        }
+    }
 
     onUserLogout = () => {
         window.localStorage.clear('token');
         window.localStorage.setItem('msg', 'You have successfully logged out!');
         window.location.reload();
+    }
+    getUserDetails = () => {
+        axios.get('/user', {
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded',
+                'Authorization': localStorage.getItem("token")
+            }
+        })
+        .then(response => {
+            console.log(response.data)
+            this.setState({name: response.data.user.name })
+        })
+        .catch(error => {
+
+        })
+        
+    }
+    componentDidMount () {
+        this.getUserDetails();
     }
     render(){
         let nav;
@@ -19,7 +44,7 @@ export default class Header extends Component {
         }
         else {
             nav = <span>
-                <button type="button" className="btn btn-link "><i className="fa fa-user-circle" />welcome</button>
+                <button type="button" className="btn btn-link "><i className="fa fa-user-circle" />{this.state.name}</button>
                 <button type="button" onClick={this.onUserLogout} className="btn btn-link ">Logout</button>
                 {/* <Link>Sign Up</Link> */}
             </span>
