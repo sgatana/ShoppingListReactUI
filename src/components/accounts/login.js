@@ -19,14 +19,18 @@ class Login extends Component {
         this.onPassChangeHandler = this.onPassChangeHandler.bind(this)
 
     }
+   
     componentDidMount (){
-        if (window.localStorage.getItem('token')) {
-            this.props.history.push('/dashboard');
+        try {
+            if (window.localStorage.getItem('token')) {
+                this.props.history.push('/dashboard');
+            }
+            else if (window.localStorage.getItem('msg')) {
+                toast.warn(window.localStorage.getItem('msg'))
+                window.localStorage.clear('msg')
+            }
         }
-        else if (window.localStorage.getItem('msg')){
-            toast.warn(window.localStorage.getItem('msg'))
-            window.localStorage.clear('msg')
-        }
+        catch (e) { }        
     }
     // create a login function and pass it to form
     handleLogin = (e)=>{
@@ -47,6 +51,7 @@ class Login extends Component {
         })
         .catch((error) => {
             toast.error(error.response.data.error)
+            console.log(error.response)
             
         });
     }

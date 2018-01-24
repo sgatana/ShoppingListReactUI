@@ -18,10 +18,14 @@ class Register extends Component {
         this.handleRegister = this.handleRegister.bind(this)
         this.onChangeInputs = this.onChangeInputs.bind(this)
     }
-    componentWillMount() {
-        if (window.localStorage.getItem('token')) {
-            this.props.history.push('/dashboard');
+    componentDidMount() {
+        try{
+            if (window.localStorage.getItem('token')) {
+                this.props.history.push('/dashboard');
+            }
         }
+        catch (e ){}
+       
     }
 
     handleRegister = (e) => {
