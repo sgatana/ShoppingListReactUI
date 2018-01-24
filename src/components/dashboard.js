@@ -21,7 +21,10 @@ export default class DashBoard extends Component {
             nextPage: '',
             previousPage: '',
             view_item: false,
-            id: false
+            id: false,
+            found: true
+
+            
             // current_shoppinglist: 0
         }
         this.onDeleteList = this.onDeleteList.bind(this);
@@ -30,6 +33,22 @@ export default class DashBoard extends Component {
         this.onItemView = this.onItemView.bind(this);
 
 
+    }
+    onSearchInput = (e) => {
+        e.preventDefault();
+        if (this.state.found === true){
+            this.setState({ q: e.target.value }, () => {
+                let q = "?q=" + this.state.q;
+                this.getShoppingList(q);
+            })
+        }
+        else {
+            this.getShoppingList("");
+            this.setState({
+                found: true
+            })
+        }
+        
     }
     onNext() {
         axios.get('http://127.0.0.1:5000' + this.state.nextPage, {
@@ -104,11 +123,11 @@ export default class DashBoard extends Component {
         // this.setState({id: id, view_item: true})
         this.props.history.push('/Shoppinglist/' +id + '/Items')
     }
-    getShoppingList = () => {
+    getShoppingList = (q) => {
         if (!window.localStorage.getItem('token')) {
             this.props.history.push('/')
         }
-        axios.get('/Shoppinglist', {
+        axios.get('/Shoppinglist' + q, {
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
                 'Authorization': localStorage.getItem("token")
@@ -119,6 +138,7 @@ export default class DashBoard extends Component {
 
                     shoppingLists: response.data.shoppinglists,
                     success: true,
+                    found: true,
                     activePage: response.data.current,
                     totalItems: response.data.Total,
                     itemsPerPage: response.data.items,
@@ -132,17 +152,25 @@ export default class DashBoard extends Component {
                 
             })
             .catch(error => {
+                if (error.response.data.error === "your token is invalid, please log in "){
+                    window.localStorage.clear('token');
+                    this.props.history.push('/');
+                }
                 if (error.response) {
                     this.setState({
-                        success: true
+                        success: true, found: false
                     })
+                    if(this.state.q){
+                        toast.error(error.response.data.error)
+                        this.getShoppingList("")
+                    }
                     console.log(error.response)
                 }
             });
     }
 
-    componentDidMount() {
-        this.getShoppingList();
+    componentWillMount() {
+        this.getShoppingList("");
 
     }
 
@@ -153,7 +181,8 @@ export default class DashBoard extends Component {
             this.props.history.push('/Items')
         );
         }
-        let button
+        let button;
+        let search = <span></span>;
         if (this.state.nextPage && !this.state.previousPage) {
             //    button = <button onClick={() => { this.onPrevious() }} className="pull-left btn btn-primary"><span aria-hidden="true">&larr;</span> Older</button>
             button = <button onClick={() => { this.onNext() }} className="pull-right btn btn-primary">Newer <span aria-hidden="true">&rarr;</span></button>
@@ -170,29 +199,41 @@ export default class DashBoard extends Component {
         }
         let noShopp = <span></span>
         if (this.state.success && !this.state.shoppingLists[0]) {
-            noShopp = <div>oops! You do not have click add button to add items</div>
+            noShopp = <div className="text-center">oops! You do not have click add button to add items</div>
         }
         else if (!this.state.success && !this.state.shoppingLists[0]) {
-            noShopp = <div>loading ...</div>
+            noShopp = 
+                <div className="text-center"><i className="text-warning fa fa-circle-o-notch fa-spin fa-3x fa-fw" />
+                    <span className="sr-only">Loading...</span>
+                </div>
+        }
+        else if (this.state.success && this.state.shoppingLists[0]){
+            search = <div className="input-group pull-right col-md-4">
+                <input type="email" onInput={this.onSearchInput} name="search" className="form-control" placeholder="search shopping list" />
+                <span className="input-group-addon"><i className="glyphicon glyphicon-search" /></span>
+            </div>
         }
         return (
             <div>
                 <Header />
+                <ToastContainer hideProgressBar={true} />
                 <div className="col-md-12 dashboard">
                     <div className="col-md-12">
                        
                         <div className="text-center">
-                            <button type="button" data-toggle="modal" data-target="#add_list" className="btn-circle fa fa-plus " />
+                            <span className="c-add">Click here to add </span>
+                            <span className="fa fa-hand-o-right"></span>
+                            <button type="button" data-toggle="modal" data-target="#add_list" title="add shoppinglist" className="btn-circle fa fa-plus " />
                         </div>
                         <AddList />
-                        <ToastContainer hideProgressBar={true} />
-                       
+                        {search}
                     </div>
                     <br />
                     <div className="col-md-12">
-                        {noShopp}
+                        
                         <div className="row">
                             <h3 className="text-center">Shopping lists details</h3>
+                            {noShopp}
                         
                             {
                                 this.state.shoppingLists.map((list) => {
