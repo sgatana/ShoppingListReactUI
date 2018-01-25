@@ -54,12 +54,6 @@ class Items extends Component {
             this.setState({items: response.data.shoppinglist_items})
         })
         .catch(error => {
-            if (error.response.data.error === "your token is invalid, please log in ") {
-                window.localStorage.clear('token');
-                window.location.reload();
-                this.props.history.push('/');
-            }
-            console.log(error.response)
             toast.error(error.response.data.error)
 
         })
@@ -69,6 +63,9 @@ class Items extends Component {
         if (!window.localStorage.getItem('token')) {
             this.props.history.push('/')
         }
+        this.getItems(this.props.match.params.id);
+    }
+    reload = () =>{
         this.getItems(this.props.match.params.id);
     }
     render(){ 
@@ -99,7 +96,7 @@ class Items extends Component {
                                 this.state.items.map((item) => {
                                     return (
                                         <tr key={item.id}>
-                                            <UpdateItem item={item} />
+                                            <UpdateItem itemReload={this.reload()} item={item} />
                                             <td>{item.name}</td>
                                             <td>{item.price}</td>
                                             <td>{item.quantity}</td>

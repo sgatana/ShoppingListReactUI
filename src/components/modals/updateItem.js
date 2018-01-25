@@ -22,7 +22,6 @@ class UpdateItem extends Component {
         itemDetails.set("price", this.state.price);
         itemDetails.set("quantity", this.state.quantity);
         itemDetails.set("unit", this.state.unit);
-        // this.setState({ shoppingList: list_id });
 
         axios.put(`/Shoppinglist/${list_id}/Items/${item_id}`, itemDetails,
             {
@@ -34,6 +33,8 @@ class UpdateItem extends Component {
             .then(response => {
                 console.log(response.data);
                 document.getElementById('updateButton' + item_id).click();
+                // reload items after update 
+                this.props.reload()
                 toast.success(response.data.message)
 
             })

@@ -185,16 +185,16 @@ export default class DashBoard extends Component {
         let search = <span></span>;
         if (this.state.nextPage && !this.state.previousPage) {
             //    button = <button onClick={() => { this.onPrevious() }} className="pull-left btn btn-primary"><span aria-hidden="true">&larr;</span> Older</button>
-            button = <button onClick={() => { this.onNext() }} className="pull-right btn btn-primary">Newer <span aria-hidden="true">&rarr;</span></button>
+            button = <button onClick={() => { this.onNext() }} className="pull-right btn btn-primary">Next <span aria-hidden="true">&rarr;</span></button>
         }
         else if (this.state.nextPage && this.state.previousPage) {
             button = <span>
-                <button onClick={() => { this.onPrevious() }} className="pull-left btn btn-primary"><span aria-hidden="true">&larr;</span> Older</button>
-                <button onClick={() => { this.onNext() }} className="pull-right btn btn-primary">Newer <span aria-hidden="true">&rarr;</span></button>
+                <button onClick={() => { this.onPrevious() }} className="pull-left btn btn-primary"><span aria-hidden="true">&larr;</span> Prev</button>
+                <button onClick={() => { this.onNext() }} className="pull-right btn btn-primary">Next <span aria-hidden="true">&rarr;</span></button>
             </span>
         }
         else if (!this.state.nextPage && this.state.previousPage) {
-            button = <button onClick={() => { this.onPrevious() }} className="pull-left btn btn-primary"><span aria-hidden="true">&larr;</span> Older</button>
+            button = <button onClick={() => { this.onPrevious() }} className="pull-left btn btn-primary"><span aria-hidden="true">&larr;</span> Prev</button>
             // button = <button onClick={() => { this.onNext() }} className="pull-right btn btn-primary">Newer <span aria-hidden="true">&rarr;</span></button>
         }
         let noShopp = <span></span>
