@@ -46,14 +46,12 @@ class Login extends Component {
                 'Content-type': 'application/x-www-form-urlencoded' }
             })
         .then((response) => {
-            console.log(response.data);
             localStorage.setItem('token',"Bearer " +response.data.token);
             localStorage.setItem('message', response.data.message);
             this.props.history.push('/dashboard')
         })
         .catch((error) => {
             toast.error(error.response.data.error)
-            console.log(error.response)
             
         });
     }
