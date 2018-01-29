@@ -24,7 +24,8 @@ export default class DashBoard extends Component {
             previousPage: '',
             view_item: false,
             id: false,
-            found: true
+            found: true,
+            message:""
             
         }
       
@@ -123,9 +124,13 @@ export default class DashBoard extends Component {
     }
     // get all the shopping list
     getShoppingList = (q) => {
-        if (!window.localStorage.getItem('token')) {
-            this.props.history.push('/')
+        try{
+            if (!window.localStorage.getItem('token')) {
+                this.props.history.push('/')
+            }
         }
+        catch (e){}
+       
         axios.get('/Shoppinglist' + q, {
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
@@ -152,24 +157,34 @@ export default class DashBoard extends Component {
             })
             .catch(error => {
                 // verify token expiration
-                if (error.response.data.error === "your token is invalid, please log in "){
-                    window.localStorage.clear('token');
-                    window.location.reload();
-                    this.props.history.push('/');
-                }
-                else if (error.response) {
-                    this.setState({
-                        success: true, found: false
-                    })
-                    if(this.state.q){
-                        toast.error(error.response.data.error)
-                        this.getShoppingList("")
+                if(error.response){
+                    if (error.response.data.error === "your token is invalid, please log in ") {
+                        window.localStorage.removeItem('token');
+                        window.location.reload();
+                        this.props.history.push('/');
+                    }
+                    else if (error.response) {
+                        this.setState({
+                            success: true, found: false
+                        })
+                        if (this.state.q) {
+                            toast.error(error.response.data.error)
+                            this.getShoppingList("")
+                        }
                     }
                 }
+                else {
+                    // console.log(error.request);
+                }
+               
             });
     }
     // load shopping lists to the dashboard
     componentWillMount() {
+        this.getShoppingList("");
+
+    }
+    reloadDashboard = () => {
         this.getShoppingList("");
 
     }
@@ -184,7 +199,6 @@ export default class DashBoard extends Component {
         let button;
         let search = <span></span>;
         if (this.state.nextPage && !this.state.previousPage) {
-            //    button = <button onClick={() => { this.onPrevious() }} className="pull-left btn btn-primary"><span aria-hidden="true">&larr;</span> Older</button>
             button = <button onClick={() => { this.onNext() }} className="pull-right btn btn-primary">Next <span aria-hidden="true">&rarr;</span></button>
         }
         else if (this.state.nextPage && this.state.previousPage) {
@@ -195,7 +209,6 @@ export default class DashBoard extends Component {
         }
         else if (!this.state.nextPage && this.state.previousPage) {
             button = <button onClick={() => { this.onPrevious() }} className="pull-left btn btn-primary"><span aria-hidden="true">&larr;</span> Prev</button>
-            // button = <button onClick={() => { this.onNext() }} className="pull-right btn btn-primary">Newer <span aria-hidden="true">&rarr;</span></button>
         }
         let noShopp = <span></span>
         if (this.state.success && !this.state.shoppingLists[0]) {
@@ -225,7 +238,7 @@ export default class DashBoard extends Component {
                             <span className="fa fa-hand-o-right"></span>
                             <button type="button" data-toggle="modal" data-target="#add_list" title="add shoppinglist" className="btn-circle fa fa-plus " />
                         </div>
-                        <AddList />
+                        <AddList listReload={this.reloadDashboard} />
                         {search}
                     </div>
                     <br />
@@ -248,7 +261,6 @@ export default class DashBoard extends Component {
                                                         <p>{list.description}</p>
                                                         <p>
                                                             <i className="btn glyphicon glyphicon-plus text-primary"
-                                                                // onClick={() => { this.setState({ current_shoppinglist: list.id }, console.log('Clickeddddd', this.state))}}
                                                                 data-toggle="modal"
                                                                 data-placement="top" title="add shopping list"
                                                                 data-target={"#add_item" + list.id}
