@@ -70,27 +70,27 @@ class Register extends Component {
                     <div className="col-md-4 home-login">
                         <div >
                             <p className="text-center"><i className="fa fa-user-circle user" /></p>
-                            <h1 className="text-center">User Registration </h1>
+                            <h1 className="text-center">User Registration</h1>
                             <form method="post" className="login" onSubmit={this.handleRegister}>
                                 <ToastContainer hideProgressBar={true} />
                                 <div className="input-group">
                                     <span className="input-group-addon"><i className="glyphicon glyphicon-user" /></span>
-                                    <input type="text" required onChange={this.onChangeInputs} name="username" className="form-control" placeholder="Enter Username" />
+                                    <input type="text" required onChange={this.onChangeInputs} id="username" name="username" className="form-control" placeholder="Enter Username" />
                                 </div>
                                 <br />
                                 <div className="input-group">
                                     <span className="input-group-addon"><i className="glyphicon glyphicon-envelope" /></span>
-                                    <input type="text" required onChange={this.onChangeInputs} name="email" className="form-control" placeholder="Enter Email" />
+                                    <input type="text" required onChange={this.onChangeInputs} id="email" name="email" className="form-control" placeholder="Enter Email" />
                                 </div>
                                 <br />
                                 <div className="input-group">
                                     <span className="input-group-addon"><i className="glyphicon glyphicon-lock" /></span>
-                                    <input type="text" required onChange={this.onChangeInputs} name="password" className="form-control" placeholder="Enter Password" />
+                                    <input type="password" required onChange={this.onChangeInputs} id="password" name="password" className="form-control" placeholder="Enter Password" />
                                 </div>
                                 <br />
                                 <div className="input-group">
                                     <span className="input-group-addon"><i className="glyphicon glyphicon-lock" /></span>
-                                    <input type="text" required onChange={this.onChangeInputs} name="confirm" className="form-control" placeholder="Confirm Password" />
+                                    <input type="password" required onChange={this.onChangeInputs} id="confirm" name="confirm" className="form-control" placeholder="Confirm Password" />
                                 </div>
                                 <br />
                                 <input type="submit" value="Submit" className="btn col-md-5 btn-primary" />
