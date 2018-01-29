@@ -1,15 +1,15 @@
+sudo: required
+dist: trusty
 language: node_js
 node_js:
-  - "stable"
-  - 8.0
+  # LTS version
+  - "8.0"
 cache:
   directories:
-  - node_modules
+    - node_modules
+install:
+  - npm install jest-cli
+  - npm install
+# command to run tests
 script:
-  - npm test
-  - npm run build
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $github_token
-  local_dir: build
+    - npm test --coverage
