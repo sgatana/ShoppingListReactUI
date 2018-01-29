@@ -1,1 +1,2 @@
 [![Build Status](https://travis-ci.org/sgatana/ShoppingListReactUI.svg?branch=develop)](https://travis-ci.org/sgatana/ShoppingListReactUI)
+[![Coverage Status](https://coveralls.io/repos/github/sgatana/ShoppingListReactUI/badge.svg?branch=master)](https://coveralls.io/github/sgatana/ShoppingListReactUI?branch=develop)
