@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 class AddItem extends Component {
@@ -32,9 +33,12 @@ class AddItem extends Component {
         }
     })
     .then(response => {
-        window.location.reload();
+        // window.location.reload();
+        console.log(response.data);
     })
     .catch(error => {
+        toast.error(error.response.data.error)
+        console.log(error.response)
     })
     }
 
@@ -61,19 +65,19 @@ class AddItem extends Component {
 
                                 <div className="form-group">
                                     <label htmlFor="name" className="control-label">Name:</label>
-                                    <input type="text" name='name' required onChange={this.onInputChange} className="form-control" placeholder="Enter shopping item name" />
+                                    <input type="text" id="name" name='name' required onChange={this.onInputChange} className="form-control" placeholder="Enter shopping item name" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="recipient-name" className="control-label">Price:</label>
-                                    <input type="text" name='price' required onChange={this.onInputChange} className="form-control" placeholder="Enter price" />
+                                    <input type="text" id="price" name='price' required onChange={this.onInputChange} className="form-control" placeholder="Enter price" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="recipient-name" className="control-label">Quantity:</label>
-                                    <input type="text" name='quantity' required onChange={this.onInputChange} className="form-control" placeholder="Enter quantity" />
+                                    <input type="text" id="quantity" name='quantity' required onChange={this.onInputChange} className="form-control" placeholder="Enter quantity" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="recipient-name" className="control-label">Unit of Measure:</label>
-                                    <input type="text" name='unit' required onChange={this.onInputChange} className="form-control" placeholder="Enter unit of measure e.g kgs" />
+                                    <input type="text" id="unit" name='unit' required onChange={this.onInputChange} className="form-control" placeholder="Enter unit of measure e.g kgs" />
                                 </div>
 
                             </div>

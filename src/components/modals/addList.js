@@ -18,10 +18,12 @@ export default class AddList extends Component {
     
     // handle add shoppinglist functionality
     onAddShoppingList = (e)=> {
+        const { name, description}=this.state;
+
         e.preventDefault();
         let listData = new FormData();
-        listData.set('name', this.state.name);
-        listData.set('description', this.state.description);
+        listData.set('name', name);
+        listData.set('description',description);
         axios.post('/Shoppinglist', listData, {
             headers: {
             'Content-type': 'application/x-www-form-urlencoded',
@@ -29,8 +31,10 @@ export default class AddList extends Component {
             }
         })
         .then(response => {
-           
-            window.location.reload()
+           document.getElementById('close_list').click();
+            // window.location.reload()
+            this.props.listReload();
+            toast.success(response.data.message)
             
         })
         .catch(error => {
@@ -53,19 +57,18 @@ export default class AddList extends Component {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 className="modal-title" id="add_list">Add Shopping list
-                            </h4>
+                            <button type="button" className="close" id="close_list" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 className="modal-title" id="add_list">Add Shoppinglist</h4>
                         </div>
                         <form method="post" onSubmit={this.onAddShoppingList}>
                         <div className="modal-body">
                                 <div className="form-group">
                                     <label htmlFor="name" className="control-label">Name:</label>
-                                    <input type="text" name='name' required onChange={this.onShoppingListInputs} className="form-control" placeholder="Enter shopping list name" />
+                                    <input type="text" id="listName" name='name' required onChange={this.onShoppingListInputs} className="form-control" placeholder="Enter shopping list name" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="recipient-name" className="control-label">Description:</label>
-                                    <textarea type="text" name='description' required onChange={this.onShoppingListInputs} className="form-control" placeholder="Enter the description"></textarea>
+                                    <textarea type="text" id="desc" name='description' required onChange={this.onShoppingListInputs} className="form-control" placeholder="Enter the description"></textarea>
                                 </div>
                             
                         </div>

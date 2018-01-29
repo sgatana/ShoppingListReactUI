@@ -8,11 +8,12 @@ class UpdateItem extends Component {
         super(props);
         // initialize state
         this.state = {
-            name: '',
-            price: '',
-            quantity: '',
-            unit: ''
+            name: this.props.item.name,
+            price: this.props.item.price,
+            quantity: this.props.item.quantity,
+            unit: this.props.item.unit
         }
+        this.onInputChange = this.onInputChange.bind(this)
 
     }
     // implement update item functionality
@@ -34,22 +35,21 @@ class UpdateItem extends Component {
                 console.log(response.data);
                 document.getElementById('updateButton' + item_id).click();
                 // reload items after update 
-                this.props.reload()
+                this.props.itemReload()
                 toast.success(response.data.message)
 
             })
             .catch(error => {
                 console.log(error.response);
+                toast.error(error.response.data.error)
             })
     }
     // set the state to value being entered
 
-    onInputChange = (e) => {
-        const itemName = e.target.name;
-        const itemValue = e.target.value;
-        const itemData = {};
-        itemData[itemName] = itemValue;
-        this.setState(itemData);
+    onInputChange (e) {
+        this.setState({[e.target.name]: e.target.value});
+        console.log(e.target.value)
+       
     }
     render() {
         return (
@@ -65,19 +65,19 @@ class UpdateItem extends Component {
 
                                 <div className="form-group">
                                     <label htmlFor="name" className="control-label">Name:</label>
-                                    <input type="text" name='name' required onChange={this.onInputChange} className="form-control" placeholder={this.props.item.name}/>
+                                    <input type="text" id="name" name='name' required onChange={this.onInputChange} className="form-control" value={this.state.name}/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="recipient-name" className="control-label">Price:</label>
-                                    <input type="text" name='price' required onChange={this.onInputChange} className="form-control" placeholder={this.props.item.price} />
+                                    <input type="text" id="price" name='price' required onChange={this.onInputChange} className="form-control" value={this.state.price} />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="recipient-name" className="control-label">Quantity:</label>
-                                    <input type="text" name='quantity' required onChange={this.onInputChange} className="form-control" placeholder={this.props.item.quantity} />
+                                    <input type="text" id="quantity" name='quantity' required onChange={this.onInputChange} className="form-control" value={this.state.quantity} />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="recipient-name" className="control-label">Unit of Measure:</label>
-                                    <input type="text" name='unit' required onChange={this.onInputChange} className="form-control" placeholder={this.props.item.unit} />
+                                    <input type="text" id="unit" name='unit' required onChange={this.onInputChange} className="form-control" value={this.state.unit} />
                                 </div>
 
                             </div>
