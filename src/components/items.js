@@ -24,18 +24,13 @@ class Items extends Component {
             }
         })
         .then(response => {
-            console.log(response.data.message)
             toast.success(response.data.message)
-            this.setState({items: []})
-            // this.getItems(this.props.match.params.id);
+            // reload items state after delete
+            this.reload()
         })
         .catch(error => {
             console.log(error.response)
         })
-    }
-    //add edit item functionality
-    onItemEdit = () => {
-
     }
     // add back to shoppinglist button
     onBackToDashboard = () => {
@@ -51,10 +46,20 @@ class Items extends Component {
         })
         .then(response => {
             console.log(response.data)
+            // set the state to all items
             this.setState({items: response.data.shoppinglist_items})
         })
         .catch(error => {
-            toast.error(error.response.data.error)
+            if(error.response){
+                if (error.response.data.error === "Your token is invalid, please log in") {
+                    window.localStorage.removeItem('token')
+                    this.props.history.push('/dashboard');
+                }
+                toast.error(error.response.data.error)
+                console.log(error.response)
+            }
+            this.props.history.push('/');
+            
 
         })
     }
@@ -66,6 +71,7 @@ class Items extends Component {
         this.getItems(this.props.match.params.id);
     }
     reload = () =>{
+        // e.preventDefault();
         this.getItems(this.props.match.params.id);
     }
     render(){ 
@@ -96,7 +102,7 @@ class Items extends Component {
                                 this.state.items.map((item) => {
                                     return (
                                         <tr key={item.id}>
-                                            <UpdateItem itemReload={this.reload()} item={item} />
+                                            <UpdateItem itemReload={this.reload} item={item} />
                                             <td>{item.name}</td>
                                             <td>{item.price}</td>
                                             <td>{item.quantity}</td>
