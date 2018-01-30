@@ -54,7 +54,7 @@ export default class DashBoard extends Component {
     }
     // implement pagination
     onNext() {
-        axios.get('http://127.0.0.1:5000' + this.state.nextPage, {
+        axios.get('https://shoppinglist-apis.herokuapp.com' + this.state.nextPage, {
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
                 'Authorization': localStorage.getItem("token")
@@ -76,7 +76,8 @@ export default class DashBoard extends Component {
     }
     // implement pagination
     onPrevious() {
-        axios.get('http://127.0.0.1:5000' + this.state.previousPage, {
+        
+        axios.get('https://shoppinglist-apis.herokuapp.com' + this.state.previousPage, {
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
                 'Authorization': localStorage.getItem("token")
@@ -203,21 +204,25 @@ export default class DashBoard extends Component {
         );
         }
         let pages = Math.ceil(this.state.totalItems / this.state.limit);
+        let paginate = <span />;
         let button;
         let search = <div className="input-group pull-right col-md-4">
             <input type="email" onInput={this.onSearchInput} name="search" className="form-control" placeholder="search shopping list" />
             <span className="input-group-addon"><i className="glyphicon glyphicon-search" /></span>
         </div>;
         if (this.state.nextPage && !this.state.previousPage) {
+            paginate = <label className="panel pull-right fa fa-angle-double-left">page {this.state.activePage} of {pages}<i className="fa fa-angle-double-right" /></label> 
             button = <button onClick={() => { this.onNext() }} className="pull-right btn btn-primary">Next <span aria-hidden="true">&rarr;</span></button>
         }
         else if (this.state.nextPage && this.state.previousPage) {
+            paginate = <label className="panel pull-right fa fa-angle-double-left">page {this.state.activePage} of {pages}<i className="fa fa-angle-double-right" /></label> 
             button = <span>
                 <button onClick={() => { this.onPrevious() }} className="pull-left btn btn-primary"><span aria-hidden="true">&larr;</span> Prev</button>
                 <button onClick={() => { this.onNext() }} className="pull-right btn btn-primary">Next <span aria-hidden="true">&rarr;</span></button>
             </span>
         }
         else if (!this.state.nextPage && this.state.previousPage) {
+            paginate = <label className="panel pull-right fa fa-angle-double-left">page {this.state.activePage} of {pages}<i className="fa fa-angle-double-right" /></label> 
             button = <button onClick={() => { this.onPrevious() }} className="pull-left btn btn-primary"><span aria-hidden="true">&larr;</span> Prev</button>
         }
         let noShopp = <span></span>
@@ -297,9 +302,8 @@ export default class DashBoard extends Component {
                             </nav>
                             
                         </div>
-                        <label className="panel pull-right fa fa-angle-double-left">page {this.state.activePage} of {pages}<i className="fa fa-angle-double-right"/></label> 
                         
-
+                            {paginate}
                     </div>
                 </div>
             </div>
