@@ -55,10 +55,16 @@ class Items extends Component {
                     window.localStorage.removeItem('token')
                     this.props.history.push('/dashboard');
                 }
-                toast.error(error.response.data.error)
-                console.log(error.response)
+                else{
+                    toast.error(error.response.data.error)
+                    console.log(error.response)
+                }
+                
             }
-            this.props.history.push('/');
+            else{
+                this.props.history.push('/');
+
+            }
             
 
         })
@@ -68,7 +74,9 @@ class Items extends Component {
         if (!window.localStorage.getItem('token')) {
             this.props.history.push('/')
         }
-        this.getItems(this.props.match.params.id);
+        else{
+            this.getItems(this.props.match.params.id);
+        }
     }
     reload = () =>{
         // e.preventDefault();

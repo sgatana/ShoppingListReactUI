@@ -35,6 +35,9 @@ class AddItem extends Component {
     .then(response => {
         // window.location.reload();
         console.log(response.data);
+        document.getElementById('close_item').click()
+        
+        toast.success(response.data.message)
     })
     .catch(error => {
         toast.error(error.response.data.error)
@@ -57,7 +60,7 @@ class AddItem extends Component {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button type="button" className="close" id="close_item" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 className="modal-title" id="add_list">Add Item</h4>
                         </div>
                         <form method="post" >

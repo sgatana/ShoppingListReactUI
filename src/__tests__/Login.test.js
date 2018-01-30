@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import Login from '../components/accounts/login';
+import moxios from 'moxios'
+import sinon from 'sinon';
 
 
 describe('<Login /> component', () => {
@@ -26,5 +28,23 @@ describe('<Login /> component', () => {
         expect(wrapper.state('email')).toEqual('admin@gmail.com')
     });
 });
+describe('log in user successfully', () => {
+    beforeEach(function () {
+        moxios.install()
+    })
+    afterEach(function () {
+        moxios.uninstall()
+    })
+    it('should log in user without throwing an error', () => {
+        sinon.spy(Login.prototype, 'handleLogin');
+        const wrapper = shallow(<Login />);
+        wrapper.setState({ email: 'admin@gmail.com', password: 'pass123' })
+        const Form = wrapper.find('form')
+
+        Form.simulate('submit', { preventDefault() { } })
+        expect(Login.prototype.handleLogin.calledOnce).toEqual(true)
+    });
+});
+
 
 

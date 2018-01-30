@@ -1,6 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { shallow, mount, render} from 'enzyme';
 import Register from '../components/accounts/register';
+import moxios from 'moxios';
+import sinon from 'sinon';
 
 
 describe('<Register /> component', () => {
@@ -28,5 +31,21 @@ describe('<Register /> component', () => {
         expect(wrapper.state('email')).toEqual('admin@gmail.com')
     });
 });
-
+describe('register user successfully', () => {
+    beforeEach( function () {
+        moxios.install()
+    })
+    afterEach(function() {
+        moxios.uninstall()
+    })
+    it('should register user without throwing an error', () => {
+        sinon.spy(Register.prototype, 'handleRegister');
+        const wrapper = shallow(<Register />);
+        wrapper.setState({email: 'admin@gmail.com', username:'admin', password:'pass123', confirm:'pass123'})
+        const Form = wrapper.find('form')
+      
+        Form.simulate('submit', { preventDefault() { } })
+        expect(Register.prototype.handleRegister.calledOnce).toEqual(true)
+    });
+});
 

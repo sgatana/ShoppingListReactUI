@@ -1,11 +1,37 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import Dashboard from '../components/dashboard';
+import { shallow, render } from 'enzyme';
+import DashBoard from '../components/dashboard';
+import AddItem from '../components/modals/addItem';
+import AddList from '../components/modals/addlist';
+import updateItem from '../components/modals/updateItem';
+// import UpdateList from '../components/modals/updateItem';
+
 
 describe("<Dashboard /> component", () => {
-    const wrapper = shallow(<Dashboard />);
+    const props = {
+        history:{
+            push: () => {}
+        }
+    }
+    const wrapper = shallow(<DashBoard {...props} />);
     it("should render without failing", () => {
         expect(wrapper.find("div")).toHaveLength(8)
 
+    });
+});
+
+describe('<Dashboard /> component contains child componenets', () => {
+ 
+    it('should render <AddItem/> component', () => {
+        const wrapper = render(<AddItem />)
+        expect(wrapper.length).toEqual(1)
+    });
+    it('should render <AddList/> component', () => {
+        const wrapper = shallow(<AddList  />)
+        expect(wrapper.length).toEqual(1)
+    });
+    it('should render <UpdateList /> component', () => {
+        const wrapper = shallow(<updateItem />)
+        expect(wrapper.length).toEqual(1)
     })
-})
+});

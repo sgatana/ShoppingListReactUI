@@ -124,13 +124,10 @@ export default class DashBoard extends Component {
     }
     // get all the shopping list
     getShoppingList = (q) => {
-        try{
-            if (!window.localStorage.getItem('token')) {
-                this.props.history.push('/')
-            }
+   
+        if (!window.localStorage.getItem('token')) {
+            this.props.history.push('/')
         }
-        catch (e){}
-       
         axios.get('/Shoppinglist' + q, {
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',

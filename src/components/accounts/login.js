@@ -35,7 +35,7 @@ class Login extends Component {
         catch (e) { }        
     }
     // create a login function and pass it to form
-    handleLogin = (e)=>{
+    handleLogin(e){
        
         e.preventDefault();
         const LoginData = new FormData();

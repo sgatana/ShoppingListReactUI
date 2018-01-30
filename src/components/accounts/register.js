@@ -22,16 +22,15 @@ class Register extends Component {
     }
     // prevent access to registration page if already logged in
     componentDidMount() {
-        try{
-            if (window.localStorage.getItem('token')) {
-                this.props.history.push('/dashboard');
-            }
+       
+        if (window.localStorage.getItem('token')) {
+            this.props.history.push('/dashboard');
         }
-        catch (e ){}
+        
        
     }
     // handle user registration
-    handleRegister = (e) => {
+    handleRegister(e) {
         e.preventDefault();
         let RegisterData = new FormData();
         RegisterData.set("username", this.state.username);
