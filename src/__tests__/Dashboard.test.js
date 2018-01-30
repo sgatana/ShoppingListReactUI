@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, render } from 'enzyme';
 import DashBoard from '../components/dashboard';
 import AddItem from '../components/modals/addItem';
-import AddList from '../components/modals/addlist';
+import AddList from '../components/modals/addList';
 import updateItem from '../components/modals/updateItem';
 // import UpdateList from '../components/modals/updateItem';
 
