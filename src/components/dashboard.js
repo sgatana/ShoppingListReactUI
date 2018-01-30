@@ -25,7 +25,9 @@ export default class DashBoard extends Component {
             view_item: false,
             id: false,
             found: true,
-            message:""
+            message:"",
+            errmessage: "",
+            limit:""
             
         }
       
@@ -40,7 +42,10 @@ export default class DashBoard extends Component {
             })
         }
         else {
-            this.getShoppingList("");
+            this.setState({ q: e.target.value }, () => {
+                let q = "?q=" + this.state.q;
+                this.getShoppingList(q);
+            })
             this.setState({
                 found: true
             })
@@ -64,7 +69,7 @@ export default class DashBoard extends Component {
                     totalItems: response.data.Total,
                     itemsPerPage: response.data.items,
                     nextPage: response.data.next,
-                    previousPage: response.data.prev
+                    previousPage: response.data.prev,
 
                 })
             })
@@ -124,7 +129,6 @@ export default class DashBoard extends Component {
     }
     // get all the shopping list
     getShoppingList = (q) => {
-   
         if (!window.localStorage.getItem('token')) {
             this.props.history.push('/')
         }
@@ -140,11 +144,14 @@ export default class DashBoard extends Component {
                     shoppingLists: response.data.shoppinglists,
                     success: true,
                     found: true,
+                    errmessage: "",
                     activePage: response.data.current,
                     totalItems: response.data.Total,
                     itemsPerPage: response.data.items,
                     nextPage: response.data.next,
-                    previousPage: response.data.prev
+                    previousPage: response.data.prev,
+                    limit: response.data.per_page
+                    
 
                 })
               
@@ -165,13 +172,16 @@ export default class DashBoard extends Component {
                             success: true, found: false
                         })
                         if (this.state.q) {
-                            toast.error(error.response.data.error)
-                            this.getShoppingList("")
+                            console.log(error.response.data.error)
+                            this.setState({
+                                shoppingLists: [],
+                                errmessage: error.response.data.error
+                            })
                         }
                     }
                 }
                 else {
-                    // console.log(error.request);
+                    console.log(error.request);
                 }
                
             });
@@ -179,13 +189,12 @@ export default class DashBoard extends Component {
     // load shopping lists to the dashboard
     componentWillMount() {
         this.getShoppingList("");
-
     }
     reloadDashboard = () => {
         this.getShoppingList("");
-
+       
     }
-
+  
     render() {
         if(this.state.view_item){
             return (
@@ -193,8 +202,12 @@ export default class DashBoard extends Component {
             this.props.history.push('/Items')
         );
         }
+        let pages = Math.ceil(this.state.totalItems / this.state.limit);
         let button;
-        let search = <span></span>;
+        let search = <div className="input-group pull-right col-md-4">
+            <input type="email" onInput={this.onSearchInput} name="search" className="form-control" placeholder="search shopping list" />
+            <span className="input-group-addon"><i className="glyphicon glyphicon-search" /></span>
+        </div>;
         if (this.state.nextPage && !this.state.previousPage) {
             button = <button onClick={() => { this.onNext() }} className="pull-right btn btn-primary">Next <span aria-hidden="true">&rarr;</span></button>
         }
@@ -208,20 +221,17 @@ export default class DashBoard extends Component {
             button = <button onClick={() => { this.onPrevious() }} className="pull-left btn btn-primary"><span aria-hidden="true">&larr;</span> Prev</button>
         }
         let noShopp = <span></span>
-        if (this.state.success && !this.state.shoppingLists[0]) {
+        if (this.state.success && !this.state.shoppingLists[0] && !this.state.errmessage) {
             noShopp = <div className="text-center">oops! You do not have click add button to add items</div>
+        } 
+        else if (this.state.errmessage === "shopping list with such name does not exist" && !this.state.found){
+            noShopp = <div className="text-center">no shoppinglist with that name</div>
         }
         else if (!this.state.success && !this.state.shoppingLists[0]) {
             noShopp = 
                 <div className="text-center"><i className="text-warning fa fa-circle-o-notch fa-spin fa-3x fa-fw" />
                     <span className="sr-only">Loading...</span>
                 </div>
-        }
-        else if (this.state.success && this.state.shoppingLists[0]){
-            search = <div className="input-group pull-right col-md-4">
-                <input type="email" onInput={this.onSearchInput} name="search" className="form-control" placeholder="search shopping list" />
-                <span className="input-group-addon"><i className="glyphicon glyphicon-search" /></span>
-            </div>
         }
         return (
             <div>
@@ -282,9 +292,13 @@ export default class DashBoard extends Component {
                             <nav aria-label="" className="fixed-bottom">
                                 <ul className="pager text-center">
                                     {button}
+                                   
                                 </ul>
                             </nav>
+                            
                         </div>
+                        <label className="panel pull-right fa fa-angle-double-left">page {this.state.activePage} of {pages}<i className="fa fa-angle-double-right"/></label> 
+                        
 
                     </div>
                 </div>
