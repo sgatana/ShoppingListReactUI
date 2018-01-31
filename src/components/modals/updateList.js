@@ -8,8 +8,8 @@ export default class UpdateList extends Component {
         super(props);
         // initialize state
         this.state = {
-            name: '',
-            description: '',
+            name: this.props.list.name,
+            description: this.props.list.description,
             isModalOpen: false,
             items: []
         }
@@ -29,7 +29,8 @@ export default class UpdateList extends Component {
         })
             .then(response => {
                 console.log(response.data.message)
-                document.getElementById('closeButton' +id ).click();
+                document.getElementById('closeButton' + id ).click();
+                this.props.listReload()
                 toast.success(response.data.message)
                 
             })
@@ -40,11 +41,9 @@ export default class UpdateList extends Component {
     }
     // set the state to value being entered
     onShoppingListInputs = (e) => {
-        const listName = e.target.name;
-        const listValue = e.target.value;
-        let listDetails = {}
-        listDetails[listName] = listValue;
-        this.setState(listDetails)
+        this.setState({
+            [e.target.name]: e.target.value,
+        })
     }
 
     render() {
@@ -61,11 +60,11 @@ export default class UpdateList extends Component {
                             <div className="modal-body">
                                 <div className="form-group">
                                     <label htmlFor="name" className="control-label">Name:</label>
-                                    <input type="text" name='name' required onChange={this.onShoppingListInputs} className="form-control" placeholder={this.props.list.name} />
+                                    <input type="text" name='name' required onChange={this.onShoppingListInputs} className="form-control" value={this.state.name} />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="recipient-name" className="control-label">Description:</label>
-                                    <textarea type="text" name='description' required onChange={this.onShoppingListInputs} className="form-control" placeholder={this.props.list.description}></textarea>
+                                    <textarea type="text" name='description' required onChange={this.onShoppingListInputs} className="form-control" value={this.state.description}></textarea>
                                 </div>
 
                             </div>

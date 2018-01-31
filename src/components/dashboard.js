@@ -4,7 +4,6 @@ import UpdateList from './modals/updateList';
 import axios from 'axios';
 import AddItem from './modals/addItem';
 import Header from './header';
-import Items from './items';
 import { ToastContainer, toast } from 'react-toastify';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
@@ -54,7 +53,7 @@ export default class DashBoard extends Component {
     }
     // implement pagination
     onNext() {
-        axios.get('https://shoppinglist-apis.herokuapp.com' + this.state.nextPage, {
+        axios.get('http://127.0.0.1:5000' + this.state.nextPage, {
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
                 'Authorization': localStorage.getItem("token")
@@ -76,8 +75,7 @@ export default class DashBoard extends Component {
     }
     // implement pagination
     onPrevious() {
-        
-        axios.get('https://shoppinglist-apis.herokuapp.com' + this.state.previousPage, {
+        axios.get('http://127.0.0.1:5000' + this.state.previousPage, {
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
                 'Authorization': localStorage.getItem("token")
@@ -158,6 +156,7 @@ export default class DashBoard extends Component {
               
                 toast.success(window.localStorage.getItem('message'))
                 window.localStorage.removeItem('message')
+                window.localStorage.setItem('shoppinglist', response.data.shoppinglists.name )
                 
             })
             .catch(error => {
@@ -182,7 +181,7 @@ export default class DashBoard extends Component {
                     }
                 }
                 else {
-                    console.log(error.request);
+                    this.props.history.push('/')
                 }
                
             });
@@ -191,18 +190,13 @@ export default class DashBoard extends Component {
     componentWillMount() {
         this.getShoppingList("");
     }
+    // refresh the shoppinglist dashboard after add and update
     reloadDashboard = () => {
         this.getShoppingList("");
        
     }
   
     render() {
-        if(this.state.view_item){
-            return (
-            <Items id={this.state.id}/>,
-            this.props.history.push('/Items')
-        );
-        }
         let pages = Math.ceil(this.state.totalItems / this.state.limit);
         let paginate = <span />;
         let button;
@@ -267,7 +261,7 @@ export default class DashBoard extends Component {
                                             <div className="col-sm-6 col-md-4">
                                                 <div className="thumbnail">
                                                     <AddItem listId={list.id} />
-                                                    <UpdateList list={list}/>
+                                                    <UpdateList list={list} listReload={this.reloadDashboard} />
                                                     <div className="caption">
                                                         <h4 className="text-center">{list.name}</h4>
                                                         <p>{list.description}</p>

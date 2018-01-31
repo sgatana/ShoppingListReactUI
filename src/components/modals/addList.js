@@ -44,11 +44,9 @@ export default class AddList extends Component {
     }
     // set state to value being entered
     onShoppingListInputs =(e) =>{
-        const listName = e.target.name;
-        const listValue = e.target.value;
-        let listDetails = {}
-        listDetails[listName] = listValue;
-        this.setState(listDetails)
+        this.setState({
+            [e.target.name]: e.target.value,
+        })
     }
 
     render() {

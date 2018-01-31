@@ -48,11 +48,9 @@ class AddItem extends Component {
     // set the state to the value being entered
 
     onInputChange = (e) => {
-        const itemName = e.target.name;
-        const itemValue = e.target.value;
-        const itemData = {};
-        itemData[itemName] = itemValue;
-        this.setState(itemData);
+        this.setState({
+            [e.target.name]: e.target.value,
+        })
     }
     render() {
         return (

@@ -16,8 +16,6 @@ class Login extends Component {
         }
         // bind methods to super
         this.handleLogin = this.handleLogin.bind(this);
-        this.onEmailChangeHandler = this.onEmailChangeHandler.bind(this);
-        this.onPassChangeHandler = this.onPassChangeHandler.bind(this)
 
     }
    
@@ -62,16 +60,12 @@ class Login extends Component {
         });
     }
 
-    onEmailChangeHandler = (e) => {
+    onInputChangeHandler = (e) => {
         this.setState({
            [e.target.name]: e.target.value,
         })
     } 
-    onPassChangeHandler = (e) => {
-        this.setState({
-            password: e.target.value
-        })
-    } 
+
     render() {
         return (
                 <div className="home">
@@ -87,12 +81,12 @@ class Login extends Component {
                                 <form method="post" className="login" onSubmit={this.handleLogin}>
                                     <div className="input-group">
                                         <span className="input-group-addon"><i className="glyphicon glyphicon-envelope" /></span>
-                                        <input type="email" required onChange={this.onEmailChangeHandler} id="email" name="email" value={this.state.email} className="form-control" placeholder="Enter your email as username" />
+                                    <input type="email" required onChange={this.onInputChangeHandler} id="email" name="email" value={this.state.email} className="form-control" placeholder="Enter your email as username" />
                                     </div>
                                     <br />
                                     <div className="input-group">
                                         <span className="input-group-addon"><i className="glyphicon glyphicon-lock" /></span>
-                                        <input type="password" required id="password" name="password" value={this.state.password} onChange={this.onPassChangeHandler} className="form-control" placeholder="Enter password" />
+                                    <input type="password" required id="password" name="password" value={this.state.password} onChange={this.onInputChangeHandler} className="form-control" placeholder="Enter password" />
                                     </div>
                                     <br />
                                 <input type="submit" value="Submit" className="btn col-md-5 btn-primary" />

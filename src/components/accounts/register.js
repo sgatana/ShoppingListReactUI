@@ -52,12 +52,9 @@ class Register extends Component {
     };
     // set state to the value being entered
     onChangeInputs = (event) => {
-        const key = event.target.name;
-        const value = event.target.value;
-        let details = {};
-        details[key] = value;
-        this.setState(details);
-
+      this.setState({
+           [event.target.name]: event.target.value,
+        })
 
     }
     render() {
