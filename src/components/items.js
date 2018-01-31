@@ -3,6 +3,8 @@ import Header from './header';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import UpdateItem from './modals/updateItem';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+
 
 
 class Items extends Component {
@@ -11,10 +13,24 @@ class Items extends Component {
         // initialize state
         this.state = {
             items: [],
-            listId: ''
+            listId: '',
+            search: ''
         }
     }
-    
+    // search items
+   onUpdateSearch = (event) => {
+        this.setState({search: event.target.value})
+   }
+   // confirm delete 
+    onConfirmDelete = (itemId, name) => {
+        confirmAlert({
+            title: 'Confirm to delete',
+            message: 'Are you sure you want to delete ' +name,
+            confirmLabel: 'Delete',
+            cancelLabel: 'Cancel',
+            onConfirm: () => this.onItemDelete(itemId)
+        })
+    };
     // allow item deletion 
     onItemDelete = (itemId) => {
         axios.delete(`/Shoppinglist/${this.props.match.params.id}/Items/${itemId}`, {
@@ -83,19 +99,29 @@ class Items extends Component {
         this.getItems(this.props.match.params.id);
     }
     render(){ 
+        let filterContent = this.state.items.filter(
+            (item) => {
+                return item.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+            }
+        );
         return(
             <div>
                 <Header />
                 <ToastContainer hideProgressBar={true} />
                 <div className="page-header">
                     <h3>
-                        ShoppingList name 
+                        Shoppinglist Items: 
                         <button className="pull-right btn btn-success fa fa-long-arrow-left" onClick={this.onBackToDashboard}>Back To ShoppingList 
                         </button>
                     </h3>
                 </div>
                 <div className="row">
-                    <table className='table table-hover table-stripped table-bordered'>
+                
+                    <div className="input-group pull-right col-md-4">
+                        <input type="email" value={this.state.search} onChange={this.onUpdateSearch} name="search" className="form-control" placeholder="search shopping list item" />
+                        <span className="input-group-addon"><i className="glyphicon glyphicon-search" /></span>
+                    </div>
+                    <table className='table table-hover table-stripped table-bordered' id="myTable">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -107,7 +133,7 @@ class Items extends Component {
                         </thead>
                         <tbody>
                             {
-                                this.state.items.map((item) => {
+                                filterContent.map((item) => {
                                     return (
                                         <tr key={item.id}>
                                             <UpdateItem itemReload={this.reload} item={item} />
@@ -117,7 +143,7 @@ class Items extends Component {
                                             <td>{item.unit}</td>
                                             <td>
                                                 <i className="fa fa-edit" data-target={"#update_item" + item.id } data-toggle="modal" /> | 
-                                                <i className="fa fa-trash text-danger" onClick={() => { this.onItemDelete(item.id)}} />
+                                                <i className="fa fa-trash text-danger" onClick={() => { this.onConfirmDelete(item.id, item.name)}} />
                                             </td>
                                         </tr>
                                     )
