@@ -7,12 +7,15 @@ An awesome shoppinglist app developed in react js that allows users to create li
 ## Prerequisites
 You will need to hav the following:
 > Node js - a javascript runtime  `use $brew install node` to install it.
+
 > React js - a javascript library for building UI, install using `npm install -g react`
 
 ## Installation
 To install the app t you local PC, clone the repo by running
 ```git clone https://github.com/sgatana/ShoppingListReactUI.git```
+
 Onced you have cloned the App, navigate to the directory to install required packages:
+
 ```
 $cd ShoppingListReactUI
 $npm install
