@@ -10,6 +10,6 @@ describe('<Item /> component', () => {
     }
     const wrapper = shallow(<Item {...props}/>)
     it('should render without breaking', () => {
-        expect(wrapper.find('div')).toHaveLength(3)
+        expect(wrapper.find('div')).toHaveLength(4)
     })
 })
