@@ -13,8 +13,8 @@ import axios from 'axios';
 import Home from './components/home';
  
 // add a base url
-axios.defaults.baseURL='http://127.0.0.1:5000/v1/';
-// axios.defaults.baseURL = 'https://shoppinglist-apis.herokuapp.com/v1/';
+// axios.defaults.baseURL='http://127.0.0.1:5000/v1/';
+axios.defaults.baseURL = 'https://shoppinglist-apis.herokuapp.com/v1/';
 
 
 

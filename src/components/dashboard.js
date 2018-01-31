@@ -53,7 +53,7 @@ export default class DashBoard extends Component {
     }
     // implement pagination
     onNext() {
-        axios.get('http://127.0.0.1:5000' + this.state.nextPage, {
+        axios.get('https://shoppinglist-apis.herokuapp.com' + this.state.nextPage, {
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
                 'Authorization': localStorage.getItem("token")
@@ -75,7 +75,7 @@ export default class DashBoard extends Component {
     }
     // implement pagination
     onPrevious() {
-        axios.get('http://127.0.0.1:5000' + this.state.previousPage, {
+        axios.get('https://shoppinglist-apis.herokuapp.com' + this.state.previousPage, {
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
                 'Authorization': localStorage.getItem("token")
