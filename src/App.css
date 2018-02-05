@@ -1,0 +1,126 @@
+.react-confirm-alert-overlay {
+    background: rgba(0, 0, 0, 0.3) !important;
+ }
+.button{
+    margin-left: 30px;
+}
+.links {
+    padding: 9px 25px;
+}
+
+.navbar-inverse {
+    background-color: rgb(95, 71, 71);
+    border-color: #080808;
+    color: #fff;
+}
+.navbar-brand {
+    float: left;
+    color: #fff;
+}
+.login {
+    margin: 20px auto;
+    font-size: 18px;
+}
+.user {
+    font-size: 90px;
+    padding: 30px 0 0 0;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
+
+.item-1, 
+.item-2, 
+.item-3 {
+	position: absolute;
+    display: block;
+	top: 5em;
+    width: 60%;
+    font-size: 1.5em;
+
+	animation-duration: 20s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+.item-1{
+	animation-name: anim-1;
+}
+
+.item-2{
+	animation-name: anim-2;
+}
+
+.item-3{
+	animation-name: anim-3;
+}
+
+@keyframes anim-1 {
+	0%, 8.3% { left: -100%; opacity: 0; }
+    8.3%,25% { left: 15%; opacity: 1; }
+    33.33%, 100% { left: 110%; opacity: 0; }
+}
+
+@keyframes anim-2 {
+    0%, 33.33% { left: -100%; opacity: 0; }
+    41.63%, 58.29% { left: 15%; opacity: 1; }
+    66.66%, 100% { left: 110%; opacity: 0; }
+}
+
+@keyframes anim-3 {
+	0%, 66.66% { left: -100%; opacity: 0; }
+    74.96%, 91.62% { left: 15%; opacity: 1; }
+    100% { left: 110%; opacity: 0; }
+}
+.page-header {
+    margin: 0px 0 20px;
+    color: #fff;
+}
+table {
+    background-color: #d9edf7;
+}
+.c-add {
+    /* padding-top: 10px; */
+    text-shadow: 1px 1px grey;
+}
+.navbar-inverse .btn-link{
+    color: #f5f5f5;
+}
+.navbar-inverse .navbar-brand {
+    color: #d9edf7;
+}
+
+.btn-link a:hover {
+    text-decoration: none !important;
+}
+input[type=search] {
+    -webkit-appearance: none;
+    border-radius: 5px;
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    float: right !important;
+    content: 'me'
+}
+#shoppinglist_items_table_filter{
+ right: 0;
+ color: #fff;
+ float: right;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    /* color: #fff; */
+}
+.form-group {
+    margin-bottom: 15px !important;
+}
+.dataTables_length label{
+    color: #fff;
+}
+.form-control {
+    display: block !important;
+    width: 100% !important; 
+}
