@@ -41,7 +41,8 @@ class AddItem extends Component {
     })
     .catch(error => {
         // catsh the error occuring when add an item
-        toast.error(error.response.data.error)
+        // toast.error(error.response.data.error)
+        consloe.log(error.response.data.error)
         
     })
     }
