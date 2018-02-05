@@ -25,7 +25,7 @@ describe('Header.onUserLogout', () => {
         // spy on the instance instead of the component
         spyOn(instance, 'onUserLogout').and.callThrough();
 
-        expect(instance.onUserLogout()).toBe(true);
+        expect(instance.onUserLogout()).toHave(true);
         expect(instance.onUserLogout).toHaveBeenCalled();
     });
 });
