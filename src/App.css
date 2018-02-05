@@ -92,3 +92,35 @@ table {
 .btn-link a:hover {
     text-decoration: none !important;
 }
+input[type=search] {
+    -webkit-appearance: none;
+    border-radius: 5px;
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    float: right !important;
+    content: 'me'
+}
+#shoppinglist_items_table_filter{
+ right: 0;
+ color: #fff;
+ float: right;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    /* color: #fff; */
+}
+.form-group {
+    margin-bottom: 15px !important;
+}
+.dataTables_length label{
+    color: #fff;
+}
+.form-control {
+    display: block !important;
+    width: 100% !important; 
+}

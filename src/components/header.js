@@ -15,6 +15,7 @@ export default class Header extends Component {
         window.localStorage.removeItem('token');
         window.localStorage.setItem('msg', 'You have successfully logged out!');
         window.location.reload();
+        return true
     }
     // get user details 
     getUserDetails = () => {

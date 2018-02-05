@@ -9,7 +9,7 @@ const NotFound = () => {
                     Oops!</h1>
                 <h2>404 Not Found</h2>
                 <div className="error-details">
-                    Sorry, an error has occured, Requested page not found!
+                    <p>Sorry, an error has occured, Requested page not found!</p>
                 </div>
                 <div className="error-actions">
                    

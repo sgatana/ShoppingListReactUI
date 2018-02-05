@@ -4,7 +4,6 @@ import DashBoard from '../components/dashboard';
 import AddItem from '../components/modals/addItem';
 import AddList from '../components/modals/addList';
 import updateItem from '../components/modals/updateItem';
-// import UpdateList from '../components/modals/updateItem';
 
 
 describe("<Dashboard /> component", () => {

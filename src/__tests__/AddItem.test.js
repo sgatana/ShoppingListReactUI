@@ -1,6 +1,9 @@
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
+import { shallow } from 'enzyme';
 import AddItem from '../components/modals/addItem';
+import moxios from 'moxios';
+import sinon from 'sinon';
+
 
 describe('<AddItem /> component', () => {
     const wrapper = shallow(<AddItem />)
@@ -14,7 +17,7 @@ describe('<AddItem /> component', () => {
     });
     it('should render h1', () => {
         //check that H1 is being rendered
-        expect(wrapper.find('h4').text()).toEqual('Add Item')
+        expect(wrapper.find('h4').text()).toEqual('Add Shopinglist Item')
     });
     it('should render form inputs', () => {
         expect(wrapper.find('#name').length).toEqual(1);
@@ -27,5 +30,23 @@ describe('<AddItem /> component', () => {
         expect(wrapper.state('name')).toEqual('coffee')
     });
 });
+describe('add item successfully', () => {
+    beforeEach(function () {
+        moxios.install()
+    })
+    afterEach(function () {
+        moxios.uninstall()
+    })
+    it('should add shopping item without throwing an error', () => {
+        sinon.spy(AddItem.prototype, 'onAddItem');
+        const wrapper = shallow(<AddItem />);
+        wrapper.setState({ name: 'Coffee', price:45, quantity: 2, unit: 'kgs' })
+        const Form = wrapper.find('form')
+
+        Form.simulate('submit', { preventDefault() { } })
+        expect(AddItem.prototype.onAddItem.calledOnce).toEqual(false)
+    });
+});
+
 
 

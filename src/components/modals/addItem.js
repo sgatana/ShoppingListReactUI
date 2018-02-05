@@ -14,10 +14,11 @@ class AddItem extends Component {
             quantity: '',
             unit: ''
         }
+        this.onAddItem = this.onAddItem.bind(this);
         
     }
     // handle adding item functionality
-    onAddItem = (list_id) => {
+    onAddItem (list_id) {
         let itemDetails = new FormData();
         itemDetails.set("name", this.state.name);
         itemDetails.set("price", this.state.price);
@@ -34,14 +35,14 @@ class AddItem extends Component {
     })
     .then(response => {
         // window.location.reload();
-        console.log(response.data);
-        document.getElementById('close_item').click()
-        
+        document.getElementById('close_item' + list_id).click();
+        this.props.itemReload()
         toast.success(response.data.message)
     })
     .catch(error => {
+        // catsh the error occuring when add an item
         toast.error(error.response.data.error)
-        console.log(error.response)
+        
     })
     }
 
@@ -58,8 +59,8 @@ class AddItem extends Component {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <button type="button" className="close" id="close_item" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 className="modal-title" id="add_list">Add Item</h4>
+                            <button type="button" className="close" id={"close_item" + this.props.listId} data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 className="modal-title text-center" >Add Shopinglist Item</h4>
                         </div>
                         <form method="post" >
                             <div className="modal-body">

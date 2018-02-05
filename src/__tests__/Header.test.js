@@ -17,4 +17,16 @@ describe('<Header /> component', () => {
         expect(wrapper.find('button').length).toEqual(1)
     })
 })
+describe('Header.onUserLogout', () => {
+    it('returns true when called', () => {
+        const wrapper = shallow(<Header />);
+        const instance = wrapper.instance();
+
+        // spy on the instance instead of the component
+        spyOn(instance, 'onUserLogout').and.callThrough();
+
+        expect(instance.onUserLogout()).toBe(true);
+        expect(instance.onUserLogout).toHaveBeenCalled();
+    });
+});
 

@@ -5,8 +5,8 @@ import axios from 'axios';
 import AddItem from './modals/addItem';
 import Header from './header';
 import { ToastContainer, toast } from 'react-toastify';
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 export default class DashBoard extends Component {
@@ -90,7 +90,7 @@ export default class DashBoard extends Component {
                     totalItems: response.data.Total,
                     itemsPerPage: response.data.items,
                     nextPage: response.data.next,
-                    previousPage: response.data.prev
+                    previousPage: response.data.prev,
 
                 })
             })
@@ -260,7 +260,7 @@ export default class DashBoard extends Component {
                                         <div key={list.id} >
                                             <div className="col-sm-6 col-md-4">
                                                 <div className="thumbnail">
-                                                    <AddItem listId={list.id} />
+                                                    <AddItem listId={list.id} itemReload={this.reloadDashboard} />
                                                     <UpdateList list={list} listReload={this.reloadDashboard} />
                                                     <div className="caption">
                                                         <h4 className="text-center">{list.name}</h4>
