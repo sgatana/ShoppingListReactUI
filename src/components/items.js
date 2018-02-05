@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Header from './header';
+import AddItem from '../components/modals/addItem';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import UpdateItem from './modals/updateItem';
-import { confirmAlert } from 'react-confirm-alert'; // Import
+import { confirmAlert } from 'react-confirm-alert'; 
+import DataTable, { destroyDataTable} from './searchItems';
 
 
 
@@ -14,8 +16,11 @@ class Items extends Component {
         this.state = {
             items: [],
             listId: '',
-            search: ''
+            search: '',
+            shoppinglist:'',
+            list_id:''
         }
+        this.getItems = this.getItems.bind(this)
     }
     // search items
    onUpdateSearch = (event) => {
@@ -45,7 +50,6 @@ class Items extends Component {
             this.reload()
         })
         .catch(error => {
-            console.log(error.response)
         })
     }
     // add back to shoppinglist button
@@ -53,7 +57,7 @@ class Items extends Component {
         this.props.history.push('/dashboard');
     }
     // get all the items
-    getItems = (id) => {
+    getItems (id) {
         axios.get(`/Shoppinglist/${id}/Items`, {
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
@@ -63,7 +67,8 @@ class Items extends Component {
         .then(response => {
             console.log(response.data)
             // set the state to all items
-            this.setState({items: response.data.shoppinglist_items})
+            this.setState({items: response.data.shoppinglist_items});
+
         })
         .catch(error => {
             if(error.response){
@@ -85,55 +90,80 @@ class Items extends Component {
 
         })
     }
+    // load item
+    getShoppinglist = (id) => {
+        axios.get('/Shoppinglist/'+ id , { 
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded',
+                'Authorization': localStorage.getItem("token")
+            }
+        })
+        .then(response => {
+            console.log(response.data.Shoppinglist.id)
+            this.setState(
+                { 
+                    shoppinglist: response.data.Shoppinglist.name,
+                    list_id: response.data.Shoppinglist.id
+                }
+            )
+        })
+        .catch(error => {
+            console.log(error.response)
+        })
+    }
     // load items
-    componentWillMount(){
+    componentDidMount(){
         if (!window.localStorage.getItem('token')) {
             this.props.history.push('/')
         }
         else{
             this.getItems(this.props.match.params.id);
+            this.getShoppinglist(this.props.match.params.id);
+            
         }
+    }
+    componentWillUpdate() {
+        destroyDataTable("#shoppinglist_items_table");
+    }
+    componentDidUpdate() {
+        DataTable("#shoppinglist_items_table");
     }
     reload = () =>{
         // e.preventDefault();
         this.getItems(this.props.match.params.id);
     }
     render(){ 
-        let filterContent = this.state.items.filter(
-            (item) => {
-                return item.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
-            }
-        );
+       
         return(
             <div>
                 <Header />
+                <AddItem listId={this.state.list_id} itemReload={this.reload} />
                 <ToastContainer hideProgressBar={true} />
                 <div className="page-header">
-                    <h3>
-                        Shoppinglist Items: 
+                    <h4>
+                        Shoppinglist Name: {this.state.shoppinglist}
                         <button className="pull-right btn btn-success fa fa-long-arrow-left" onClick={this.onBackToDashboard}>Back To ShoppingList 
                         </button>
-                    </h3>
+                      
+                        <button className="pull-right btn btn-primary fa fa-plus" data-toggle="modal"
+                            data-placement="top" title="add shopping list"
+                            data-target={"#add_item"  + this.state.list_id}> add item </button>
+                    </h4>
                 </div>
                 <div className="row">
-                
-                    <div className="input-group pull-right col-md-4">
-                        <input type="email" value={this.state.search} onChange={this.onUpdateSearch} name="search" className="form-control" placeholder="search shopping list item" />
-                        <span className="input-group-addon"><i className="glyphicon glyphicon-search" /></span>
-                    </div>
-                    <table className='table table-hover table-stripped table-bordered' id="myTable">
+                    <table className='table table-hover table-stripped table-bordered' id="shoppinglist_items_table">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>unit</th>
-                                <th>Actions</th>
+                                <th >Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                filterContent.map((item) => {
+                                this.state.items.map((item) => {
                                     return (
                                         <tr key={item.id}>
                                             <UpdateItem itemReload={this.reload} item={item} />
@@ -141,7 +171,7 @@ class Items extends Component {
                                             <td>{item.price}</td>
                                             <td>{item.quantity}</td>
                                             <td>{item.unit}</td>
-                                            <td>
+                                            <td >
                                                 <i className="fa fa-edit" data-target={"#update_item" + item.id } data-toggle="modal" /> | 
                                                 <i className="fa fa-trash text-danger" onClick={() => { this.onConfirmDelete(item.id, item.name)}} />
                                             </td>

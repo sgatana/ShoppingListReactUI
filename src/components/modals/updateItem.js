@@ -32,7 +32,6 @@ class UpdateItem extends Component {
                 }
             })
             .then(response => {
-                console.log(response.data);
                 document.getElementById('updateButton' + item_id).click();
                 // reload items after update 
                 this.props.itemReload()
@@ -57,9 +56,9 @@ class UpdateItem extends Component {
                     <div className="modal-content">
                         <div className="modal-header">
                             <button type="button" className="close" id={"updateButton" + this.props.item.id} data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 className="modal-title" id="add_list">Update Item {this.props.item.name}</h4>
+                            <h4 className="modal-title text-center">Update Item {this.props.item.name}</h4>
                         </div>
-                        <form method="post" >
+                        <form method="post">
                             <div className="modal-body">
 
                                 <div className="form-group">
@@ -70,10 +69,12 @@ class UpdateItem extends Component {
                                     <label htmlFor="recipient-name" className="control-label">Price:</label>
                                     <input type="text" id="price" name='price' required onChange={this.onInputChange} className="form-control" value={this.state.price} />
                                 </div>
+                                
                                 <div className="form-group">
                                     <label htmlFor="recipient-name" className="control-label">Quantity:</label>
                                     <input type="text" id="quantity" name='quantity' required onChange={this.onInputChange} className="form-control" value={this.state.quantity} />
                                 </div>
+                                
                                 <div className="form-group">
                                     <label htmlFor="recipient-name" className="control-label">Unit of Measure:</label>
                                     <input type="text" id="unit" name='unit' required onChange={this.onInputChange} className="form-control" value={this.state.unit} />
