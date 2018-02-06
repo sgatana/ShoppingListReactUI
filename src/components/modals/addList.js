@@ -10,7 +10,6 @@ export default class AddList extends Component {
         this.state = {
             name:'',
             description:'',
-            isModalOpen: false
         }
         // bind the method to super
         this.onAddShoppingList = this.onAddShoppingList.bind(this);
@@ -35,6 +34,7 @@ export default class AddList extends Component {
             // window.location.reload()
             this.props.listReload();
             toast.success(response.data.message)
+            this.setState({ name: '', description: '',})
             
         })
         .catch(error => {
@@ -62,11 +62,11 @@ export default class AddList extends Component {
                         <div className="modal-body">
                                 <div className="form-group">
                                     <label htmlFor="name" className="control-label">Name:</label>
-                                    <input type="text" id="listName" name='name' required onChange={this.onShoppingListInputs} className="form-control" placeholder="Enter shopping list name" />
+                                    <input type="text" id="listName" name='name' value={this.state.name} required onChange={this.onShoppingListInputs} className="form-control" placeholder="Enter shopping list name" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="recipient-name" className="control-label">Description:</label>
-                                    <textarea type="text" id="desc" name='description' required onChange={this.onShoppingListInputs} className="form-control" placeholder="Enter the description"></textarea>
+                                    <textarea type="text" id="desc" name='description' value={this.state.description} required onChange={this.onShoppingListInputs} className="form-control" placeholder="Enter the description"></textarea>
                                 </div>
                             
                         </div>
