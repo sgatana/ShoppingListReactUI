@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/sgatana/ShoppingListReactUI.svg?branch=develop)](https://travis-ci.org/sgatana/ShoppingListReactUI)
-[![Coverage Status](https://coveralls.io/repos/github/sgatana/ShoppingListReactUI/badge.svg?branch=master)](https://coveralls.io/github/sgatana/ShoppingListReactUI?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/sgatana/ShoppingListReactUI/badge.svg?branch=develop)](https://coveralls.io/github/sgatana/ShoppingListReactUI?branch=develop)
 
 An awesome shoppinglist app developed in react js that allows users to create list of things they want to shop. 
 
