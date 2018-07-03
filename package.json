@@ -21,16 +21,20 @@
     "react-toastify": "^3.2.2",
     "reactstrap": "^5.0.0-alpha.4",
     "save": "^2.3.2",
-    "sinon": "^4.2.2"
+    "sinon": "^4.2.2",
+    "snyk": "^1.88.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/components/*js",
     "eject": "react-scripts eject",
-    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "devDependencies": {
     "moxios": "^0.4.0"
-  }
+  },
+  "snyk": true
 }
