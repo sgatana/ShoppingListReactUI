@@ -16,7 +16,7 @@
     "react-confirm-alert": "^1.0.8",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1",
+    "react-scripts": "5.0.1",
     "react-test-render": "^1.1.1",
     "react-toastify": "^3.2.2",
     "reactstrap": "^5.0.0-alpha.4",
